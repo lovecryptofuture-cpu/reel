@@ -192,6 +192,7 @@
 <div class="sheet" id="sheet"><div class="grip"></div><div id="sheetBody"></div></div>
 
 <script>
+const VERSION='v6';
 const $=id=>document.getElementById(id);
 const audio=$('audio');
 let tracks=[];                 // {id,name,artist,album,dur,size,fav,blob,art}
@@ -472,7 +473,7 @@ async function removeTrack(id){
 /* ---- backup / restore (.reel binary container) ---- */
 function settingsSheet(){
   const total=tracks.reduce((a,t)=>a+t.size,0);
-  openSheet(`<h3>Library</h3>
+  openSheet(`<h3>Library \u00b7 Reel ${VERSION}</h3>
     <div class="opt" data-act="backup">${ic.save}<div><span>Back up library</span><small>${tracks.length} songs \u00b7 ${playlists.length} playlists \u00b7 ${mb(total)} (includes audio)</small></div></div>
     <div class="opt" data-act="restore">${ic.load}<div><span>Restore from backup</span><small>Merge a .reel file back in</small></div></div>`);
   $('sheetBody').querySelectorAll('.opt').forEach(o=>o.onclick=()=>{
