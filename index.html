@@ -554,8 +554,10 @@ if('mediaSession' in navigator){
   navigator.mediaSession.setActionHandler('pause',togglePlay);
   navigator.mediaSession.setActionHandler('nexttrack',()=>nextTrack(false));
   navigator.mediaSession.setActionHandler('previoustrack',prevTrack);
-  try{navigator.mediaSession.setActionHandler('seekforward',null);}catch(e){}
-  try{navigator.mediaSession.setActionHandler('seekbackward',null);}catch(e){}
+  // iOS forces the "10" skip glyph and won't show next/prev icons for web apps,
+  // so make those buttons skip tracks instead of seeking 10s.
+  try{navigator.mediaSession.setActionHandler('seekforward',()=>nextTrack(false));}catch(e){}
+  try{navigator.mediaSession.setActionHandler('seekbackward',prevTrack);}catch(e){}
 }
 
 /* ---- boot ---- */
